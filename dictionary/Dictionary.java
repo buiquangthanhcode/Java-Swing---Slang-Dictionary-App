@@ -1,0 +1,182 @@
+package Project01.dictionary;
+
+import Project01.utility.Utility;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Random;
+import java.util.Arrays;
+
+
+public class Dictionary {
+   private final String SLANG = "SLANG";
+   private final String SLANG_DEFINITION = "SLANG_DEFINITION";
+   private final String NOTFOUND = "NOT FOUND";
+   private Hashtable<String, ArrayList<String>> slangMeans;
+   private Hashtable<String, ArrayList<String>> defSlangMeans;
+   private final ArrayList<String> notFound = new ArrayList<String>();
+   private ArrayList<String> history;
+   private ArrayList<String> store_history ;
+   public Dictionary() {
+      slangMeans = new Hashtable<String, ArrayList<String>>();
+      defSlangMeans = new Hashtable<String, ArrayList<String>>();
+      history = new ArrayList<>();
+      store_history=new ArrayList<>();
+      notFound.add(NOTFOUND);
+   }
+
+   public void initData() {
+      boolean stateFile;
+      try {
+         stateFile = Utility.checkOpenFile();
+         if (stateFile) {
+            Utility.getDataFromTextFile();
+            slangMeans = Utility.getListWords();
+            defSlangMeans = Utility.getDefWords();
+         }
+      } catch (IOException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+
+   }
+
+   public Hashtable<String, ArrayList<String>> getDataMeanings() {
+      return this.slangMeans;
+   }
+
+   public Hashtable<String, ArrayList<String>> getDataMeaningsDef() {
+      return this.defSlangMeans;
+   }
+   public void setDataMeanings(Hashtable<String, ArrayList<String>>data){
+      this.slangMeans=data;
+   }
+   public void setDataMeaningsDef(Hashtable<String, ArrayList<String>>data){
+      this.defSlangMeans=data;
+   }
+
+   public ArrayList<String> findSlang(String slang,String target) {
+      if (this.slangMeans.containsKey(slang)) {
+         if(!history.contains("Slang :" + slang + "-" + this.slangMeans.get(slang)) && target.equals("Search"))
+         {
+            history.add("Slang :" + slang +"-"+ this.slangMeans.get(slang));
+         }
+         return this.slangMeans.get(slang);
+      }
+      return notFound;
+   }
+   public void clearHistory() {
+      this.history.clear();;
+   }
+
+   public String findSlang_Definitions(String defString,String target) {
+
+      if (this.defSlangMeans.containsKey(defString)) {
+         if(!history.contains("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0)) && target.equals("Search")){
+            history.add("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0));
+         }
+         return this.defSlangMeans.get(defString).get(0);
+      }
+      return NOTFOUND;
+
+   }
+
+   public ArrayList<String> getHistoryList() {
+      return this.history;
+   }
+
+   public int getSizeHistory() {
+      return this.history.size();
+   }
+
+   public boolean checkExists(String target) {
+      if (this.slangMeans.containsKey(target))
+         return true;
+      return false;
+   }
+
+   public int addSlang(String newSlang, String new_Slang_Definition, String target) {
+      boolean state = checkExists(newSlang);
+      if (state == true && target.equals("Override")) {
+         editSlang(newSlang, new_Slang_Definition, "SLANG_DEFINITION");
+      } else if (state == true && target.equals("Duplicate")) {
+            this.slangMeans.get(newSlang).add(new_Slang_Definition);
+         
+
+      }
+      return 0;
+
+   }
+
+   public boolean editSlang(String oldSlang, String newInfor, String target) {
+      if (this.slangMeans.containsKey(oldSlang)) {
+         ArrayList<String> oldMeaning = this.slangMeans.get(oldSlang);
+
+         slangMeans.remove(oldSlang);
+         if (target.equals(SLANG)) {
+            slangMeans.put(newInfor, oldMeaning);
+         } else {
+            String[] newDefinition = newInfor.split(",");
+            ArrayList<String> newDefinitionList = new ArrayList<String>(Arrays.asList(newDefinition));
+            slangMeans.put(oldSlang, newDefinitionList);
+         }
+
+         return true;
+      }
+      return false;
+
+   }
+   public  void resetHistory(){
+      for(String s : store_history){
+          slangMeans.put(s, slangMeans.get(s));
+      }
+     
+   }
+   public boolean deleteSlang(String targetSlang) {
+      if (this.slangMeans.containsKey(targetSlang)) {
+         this.slangMeans.remove(targetSlang);
+         store_history.add(targetSlang);
+         return true;
+      }
+      return false;
+   }
+
+   public int getSizeSlang() {
+      return this.slangMeans.size();
+   }
+
+   public int getSizeSlangDefinition() {
+      return this.defSlangMeans.size();
+   }
+
+   public HashMap<String, ArrayList<String>> RandomSlang() {
+      HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
+      String[] keys = this.slangMeans.keySet().toArray(new String[this.slangMeans.size()]);
+      String key = keys[new Random().nextInt(keys.length)];
+      result.put(key, this.slangMeans.get(key));
+      return result;
+   }
+
+   public ArrayList<String> randomQuizSlang() {
+      ArrayList<String> result = new ArrayList<String>();
+      for (int i = 0; i < 4; i++) {
+         String[] keys = this.slangMeans.keySet().toArray(new String[this.slangMeans.size()]);
+         String key = keys[new Random().nextInt(keys.length)];
+         result.add(key);
+      }
+      return result;
+
+   }
+
+   public ArrayList<String> randomQuizSlang_Definition() {
+      ArrayList<String> result = new ArrayList<String>();
+      for (int i = 0; i < 4; i++) {
+         String[] keys = this.defSlangMeans.keySet().toArray(new String[this.defSlangMeans.size()]);
+         String key = keys[new Random().nextInt(keys.length)];
+         result.add(key);
+      }
+      return result;
+
+   }
+}
