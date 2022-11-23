@@ -1,6 +1,5 @@
 
 package Project01.GUI.SUB_Function_UI;
-
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -10,11 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
-
 import Project01.GUI.Functions_Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 public class AddSlangUI extends Functions_Interface implements ActionListener {
     private JPanel search_panel;
     private JPanel header_search;
@@ -29,15 +26,12 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
     private JButton submitbtn;
 
     public AddSlangUI() {
-
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
         String cmd = e.getActionCommand();
         if (cmd.equals("Submit")) {
-
             String slang = input_textfile.getText();
             String slang_definition = input_Slang_Definition.getText();
             System.out.println(slang);
