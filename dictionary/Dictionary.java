@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
 import java.util.Arrays;
 
@@ -17,12 +18,12 @@ public class Dictionary {
    private Hashtable<String, ArrayList<String>> defSlangMeans;
    private final ArrayList<String> notFound = new ArrayList<String>();
    private ArrayList<String> history;
-   private ArrayList<String> store_history ;
+   private Hashtable<String, ArrayList<String>> store_history_Slang;
    public Dictionary() {
       slangMeans = new Hashtable<String, ArrayList<String>>();
       defSlangMeans = new Hashtable<String, ArrayList<String>>();
       history = new ArrayList<>();
-      store_history=new ArrayList<>();
+      store_history_Slang=new Hashtable<>();
       notFound.add(NOTFOUND);
    }
 
@@ -103,7 +104,11 @@ public class Dictionary {
       } else if (state == true && target.equals("Duplicate")) {
             this.slangMeans.get(newSlang).add(new_Slang_Definition);
          
-
+      }
+      else{
+         ArrayList<String> new_Slang_Definition_main=new ArrayList<String>();
+         new_Slang_Definition_main.add(new_Slang_Definition);
+         slangMeans.put(newSlang, new_Slang_Definition_main);
       }
       return 0;
 
@@ -128,15 +133,15 @@ public class Dictionary {
 
    }
    public  void resetHistory(){
-      for(String s : store_history){
-          slangMeans.put(s, slangMeans.get(s));
+      for (Map.Entry<String, ArrayList<String>> entry : store_history_Slang.entrySet()) {
+         slangMeans.put(entry.getKey(),  entry.getValue());
       }
      
    }
    public boolean deleteSlang(String targetSlang) {
       if (this.slangMeans.containsKey(targetSlang)) {
+         store_history_Slang.put(targetSlang,slangMeans.get(targetSlang));
          this.slangMeans.remove(targetSlang);
-         store_history.add(targetSlang);
          return true;
       }
       return false;

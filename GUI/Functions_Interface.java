@@ -159,6 +159,7 @@ public class Functions_Interface extends InterfaceProgram {
         function_panel.add(menu_function, BorderLayout.CENTER);
         function_panel.add(side_bar, BorderLayout.EAST);
         function_panel.add(footer, BorderLayout.SOUTH);
+        function_panel.setPreferredSize(new Dimension(600, 400));
 
         return function_panel;
     }

@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Project01.GUI.Functions_Interface;
@@ -18,7 +20,6 @@ public class ResetUI extends Functions_Interface implements ActionListener {
         String cmd=e.getActionCommand();
         if(cmd.equals("Reset")) {
             dic.resetHistory();
-            dic.setDataMeaningsDef(Utility.getDefWords());
             UI_ADDSLANG.resetUI();
             UI_DELETE.resetUI();
             UI_EDIT.resetUI();
@@ -30,6 +31,7 @@ public class ResetUI extends Functions_Interface implements ActionListener {
             UI_QUIZ_DEFINITION.resetCheckBox();
             UI_QUIZ_DEFINITION.resetLable();
             UI_SEARCH_DEFINITION.resetUI();
+            JOptionPane.showMessageDialog(null, "Slang Reset");
             CardLayout cardLayout = (CardLayout) (menu_function.getLayout());
             cardLayout.show(menu_function, "search");
         }else if (cmd.equals("Cancel")){

@@ -39,7 +39,7 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
         if (cmd.equals("Submit")) {
 
             String slang = input_textfile.getText();
-            String slang_definition= input_Slang_Definition.getText();
+            String slang_definition = input_Slang_Definition.getText();
             System.out.println(slang);
             boolean state = dic.checkExists(slang);
             System.out.println(state);
@@ -55,7 +55,9 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
                 overridebtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Override");
+                        input_textfile.setText("");
+                        input_Slang_Definition.setText("");
+                        d.dispose();
                         dic.addSlang(slang, slang_definition, "Override");
                     }
 
@@ -64,9 +66,11 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
                 duplicatebtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Duplicate");
 
-                         dic.addSlang(slang, slang_definition, "Duplicate");
+                        input_textfile.setText("");
+                        input_Slang_Definition.setText("");
+                        d.dispose();
+                        dic.addSlang(slang, slang_definition, "Duplicate");
 
                     }
 
@@ -81,6 +85,33 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
                 d.setLocationRelativeTo(null);
                 d.setVisible(true);
 
+            } else {
+                JDialog d = new JDialog(jframe, "Message");
+                JPanel confirmJPanel = new JPanel();
+                confirmJPanel.setLayout(new BoxLayout(confirmJPanel, BoxLayout.Y_AXIS));
+                JLabel l = new JLabel("Add Successfully");
+                l.setAlignmentX(Component.CENTER_ALIGNMENT);
+                confirmJPanel.add(l);
+                JButton okButton = new JButton("Ok");
+                okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                okButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dic.addSlang(slang, slang_definition, "Addnew");
+                        input_textfile.setText("");
+                        input_Slang_Definition.setText("");
+                        d.dispose();
+
+                    }
+
+                });
+
+                confirmJPanel.add(okButton);
+
+                d.add(confirmJPanel);
+                d.setSize(300, 150);
+                d.setLocationRelativeTo(null);
+                d.setVisible(true);
             }
         }
 
@@ -104,9 +135,9 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
         content.setLayout(new BorderLayout());
 
         input = new JPanel();
-        input.setLayout(new FlowLayout(FlowLayout.LEADING));
+        input.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        input_label = new JLabel("Enter word");
+        input_label = new JLabel("Enter slang");
         input_textfile = new JTextField(10);
         input.add(input_label);
         input.add(input_textfile);
@@ -132,7 +163,8 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
 
         return search_panel;
     }
-    public void resetUI(){
+
+    public void resetUI() {
         input_textfile.setText("");
         input_Slang_Definition.setText("");
     }

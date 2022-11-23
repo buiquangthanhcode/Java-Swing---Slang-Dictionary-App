@@ -43,7 +43,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
             String newinfor = jTextArea_edit.getText();
             boolean state = dic.checkExists(slang);
             System.out.println(state);
-            if (state) {
+            if (state && newinfor.length() != 0) {
                 JDialog d = new JDialog(jframe, "Message");
                 JPanel confirmJPanel = new JPanel();
                 confirmJPanel.setLayout(new BoxLayout(confirmJPanel, BoxLayout.Y_AXIS));
@@ -57,7 +57,19 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Slang");
                         if (newinfor.length() != 0) {
-                            dic.editSlang(slang, newinfor, "SLANG");
+
+                            boolean editstate = dic.editSlang(slang, newinfor, "SLANG");
+                            if (editstate) {
+                                input_textfile.setText("");
+                                jTextArea_edit.setText("");
+                                JOptionPane.showConfirmDialog(null, "Edit sucessfully", "Success",
+                                        JOptionPane.OK_OPTION);
+                                d.dispose();
+                            } else {
+                                JOptionPane.showConfirmDialog(null, "Edit failed", "Failure",
+                                        JOptionPane.OK_OPTION);
+                                d.dispose();
+                            }
                         } else {
                             JOptionPane.showMessageDialog(jframe, "Please enter new information");
                         }
@@ -71,7 +83,16 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("Definitions");
                         if (newinfor.length() != 0) {
-                            dic.editSlang(slang, newinfor, "SLANG_DEFINITION");
+                            boolean statebtn = dic.editSlang(slang, newinfor, "SLANG_DEFINITION");
+                            if (statebtn) {
+                                input_textfile.setText("");
+                                jTextArea_edit.setText("");
+                                JOptionPane.showMessageDialog(null, "Edit sucessfully");
+                                d.dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Edit failed");
+                                d.dispose();
+                            }
                         } else {
                             JOptionPane.showMessageDialog(jframe, "Please enter new information");
                         }
@@ -89,6 +110,15 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
                 d.setLocationRelativeTo(null);
                 d.setVisible(true);
 
+            } else if (state == true && newinfor.length() == 0) {
+                JOptionPane.showMessageDialog(null, "Please enter new information", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Slang not found", "Error", JOptionPane.ERROR_MESSAGE);
+                input_textfile.setText("");
+                jTextArea_edit.setText("");
+                return;
             }
         } else if (cmd.equals("Clear")) {
             input_textfile.setText("");
@@ -130,7 +160,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
         wraper_submit = new JPanel();
         wraper_submit.setBackground(Color.WHITE);
         wraper_submit.setLayout(new FlowLayout(FlowLayout.CENTER));
-      
+
         submitbtn = new JButton("Submit");
         submitbtn.setActionCommand("Submit-Edit");
         submitbtn.addActionListener(this);
@@ -148,7 +178,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
 
         return search_panel;
     }
-    
+
     public void resetUI() {
         input_textfile.setText("");
         jTextArea_edit.setText("");

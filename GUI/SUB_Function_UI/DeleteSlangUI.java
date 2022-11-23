@@ -55,11 +55,14 @@ public class DeleteSlangUI extends Functions_Interface implements ActionListener
                     public void actionPerformed(ActionEvent e) {
                            boolean checkDelete= dic.deleteSlang(slang);
                             if(checkDelete){
-                                JOptionPane.showMessageDialog(null, "Slang deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Slang deleted");
+                                    input_textfile.setText("");
+                                    d.dispose();
                                 return ;
                             }
                             else{
-                                JOptionPane.showMessageDialog(null, "Slang not deleted", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Slang not deleted");
+                                d.dispose();
                             }
                         
                     }
@@ -76,6 +79,7 @@ public class DeleteSlangUI extends Functions_Interface implements ActionListener
             }
             else {
                 JOptionPane.showMessageDialog(null, "Slang not found", "Error", JOptionPane.ERROR_MESSAGE);
+                input_textfile.setText("");
                 return;
 
             }
