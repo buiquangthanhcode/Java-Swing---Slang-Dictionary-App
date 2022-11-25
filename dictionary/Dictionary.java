@@ -65,6 +65,7 @@ public class Dictionary {
          }
          return this.slangMeans.get(slang);
       }
+      history.add("Slang :" + notFound);
       return notFound;
    }
    public void clearHistory() {
@@ -79,6 +80,7 @@ public class Dictionary {
          }
          return this.defSlangMeans.get(defString).get(0);
       }
+      history.add("Slang-Defitinion :" + NOTFOUND);
       return NOTFOUND;
 
    }
