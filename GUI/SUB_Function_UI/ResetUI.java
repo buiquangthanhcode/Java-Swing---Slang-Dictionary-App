@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Project01.GUI.Functions_Interface;
-import Project01.utility.Utility;
-
 public class ResetUI extends Functions_Interface implements ActionListener {
     private JPanel reset_panel;
     private JButton reset_button;
