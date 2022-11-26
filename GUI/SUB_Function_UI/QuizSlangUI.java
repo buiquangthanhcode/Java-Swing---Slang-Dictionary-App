@@ -38,7 +38,6 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         checkboxB = new JCheckBox("B");
         checkboxC = new JCheckBox("C");
         checkboxD = new JCheckBox("D");
-
         map = new HashMap<String, String>();
         mark = new HashMap<>();
         mark.put("A", 0);
@@ -57,7 +56,6 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
             if (entry.getValue() == 1) {
                 count++;
             }
-
         }
         if (cmd.equals("Random")) {
             ArrayList<String> random_question = dic.randomQuizSlang();
