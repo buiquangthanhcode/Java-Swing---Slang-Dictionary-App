@@ -32,6 +32,7 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
     private int count = 0;
     private HashMap<String, Integer> mark;
     private HashMap<String, String> map;
+    private ArrayList<String> random_question;
 
     public QuizSlangDefinitionUI() {
         checkboxA = new JCheckBox("A");
@@ -48,36 +49,39 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
         submit_answerbtn = new JButton("Submit");
     }
 
+    public void randomQuestion() {
+        String[] takeIndex = new String[] { "A", "B", "C", "D" };
+        random_question = dic.randomQuizSlang_Definition();
+        one_answer.setText("A." + dic.findSlang_Definitions_Quiz(random_question.get(0), "random").toString());
+        two_answer.setText("B." + dic.findSlang_Definitions_Quiz(random_question.get(1), "random").toString());
+        third_answer.setText("C." + dic.findSlang_Definitions_Quiz(random_question.get(2), "random").toString());
+        four_answer.setText("D." + dic.findSlang_Definitions_Quiz(random_question.get(3), "random").toString());
+        Random rand = new Random();
+        int index = rand.nextInt(3 - 0 + 1) + 0;
+        String random = random_question.get(index);
+        String random_answer = dic.findSlang_Definitions_Quiz((random_question.get(index)), "random").toString();
+        map.put(takeIndex[index], random_answer);
+        show_Slang_randow.setText(random);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
 
-        String[] takeIndex = new String[] { "A", "B", "C", "D" };
         for (Map.Entry<String, Integer> entry : mark.entrySet()) {
             if (entry.getValue() == 1) {
                 count++;
             }
-
         }
+
         if (cmd.equals("Random")) {
-            ArrayList<String> random_question = dic.randomQuizSlang_Definition();
-            one_answer.setText("A." + dic.findSlang_Definitions_Quiz(random_question.get(0), "random").toString());
-            two_answer.setText("B." + dic.findSlang_Definitions_Quiz(random_question.get(1), "random").toString());
-            third_answer.setText("C." + dic.findSlang_Definitions_Quiz(random_question.get(2), "random").toString());
-            four_answer.setText("D." + dic.findSlang_Definitions_Quiz(random_question.get(3), "random").toString());
-            Random rand = new Random();
-            int index = rand.nextInt(3 - 0 + 1) + 0;
-            String random = random_question.get(index);
-            String random_answer = dic.findSlang_Definitions_Quiz((random_question.get(index)), "random").toString();
-            map.put(takeIndex[index], random_answer);
-            show_Slang_randow.setText(random);
+            randomQuestion();
         } else if (cmd.equals("Submit")) {
             System.out.println(count);
             if (count > 1 || count <= 0) {
                 JOptionPane.showMessageDialog(null, "Please choose 1 answer", "Error", JOptionPane.ERROR_MESSAGE);
                 count = 0;
                 resetCheckBox();
-               
             } else {
                 String press = "";
                 for (Map.Entry<String, Integer> entry : mark.entrySet()) {
@@ -85,7 +89,6 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
                         press = entry.getKey();
                         break;
                     }
-
                 }
                 if (map.containsKey(press)) {
                     JDialog d = new JDialog(jframe, "Message");
@@ -99,9 +102,9 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
                     continuebtn.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            resetLable();
+                            randomQuestion();
                             resetCheckBox();
-                            count=0;
+                            count = 0;
                             d.dispose();
                         }
 
@@ -126,7 +129,7 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             resetCheckBox();
-                            count=0;
+                            count = 0;
                             d.dispose();
 
                         }
@@ -190,7 +193,7 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
         randombtn = new JButton("Randon Slang Definitions");
         randombtn.setActionCommand("Random");
         randombtn.addActionListener(this);
-        show_Slang_randow = new JLabel("");
+        show_Slang_randow = new JLabel("Press button to random");
         header_content.setMaximumSize(new Dimension(Integer.MAX_VALUE, header_content.getMinimumSize().height));
         header_content.add(randombtn);
         header_content.add(show_Slang_randow);
@@ -246,6 +249,7 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
 
         return search_panel;
     }
+
     public void resetLable() {
         one_answer.setText("Press Random to show ");
         two_answer.setText("Press Random to show ");

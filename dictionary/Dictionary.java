@@ -135,8 +135,11 @@ public class Dictionary {
          this.slangMeans.get(newSlang).add(new_Slang_Definition);
 
       } else {
+         String[] value=new_Slang_Definition.split(",");
          ArrayList<String> new_Slang_Definition_main = new ArrayList<String>();
-         new_Slang_Definition_main.add(new_Slang_Definition);
+         for(String e:value){
+            new_Slang_Definition_main.add(e);
+         }
          slangMeans.put(newSlang, new_Slang_Definition_main);
       }
       return 0;

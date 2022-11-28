@@ -17,17 +17,20 @@ public class HistoryUI extends Functions_Interface implements ActionListener {
     private JLabel header_text_title;
     private JPanel content;
     private JButton clear_History;
-    public HistoryUI(){
-        clear_History=new JButton("Clear");
+
+    public HistoryUI() {
+        clear_History = new JButton("Clear");
     }
+
     @Override
-    public void actionPerformed(ActionEvent e){
-        String cmd=e.getActionCommand();
-        if(cmd.equals("Clear History")){
-           history.setListData(new String[0]);
-           dic.clearHistory();
+    public void actionPerformed(ActionEvent e) {
+        String cmd = e.getActionCommand();
+        if (cmd.equals("Clear History")) {
+            history.setListData(new String[0]);
+            dic.clearHistory();
         }
     }
+
     public JPanel historyPanel() {
         search_panel = new JPanel();
 
@@ -47,7 +50,7 @@ public class HistoryUI extends Functions_Interface implements ActionListener {
 
         clear_History.setActionCommand("Clear History");
         clear_History.addActionListener(this);
-        content.add(clear_History,BorderLayout.NORTH);
+        content.add(clear_History, BorderLayout.SOUTH);
         content.add(history, BorderLayout.CENTER);
 
         search_panel.add(Box.createRigidArea(new Dimension(10, 8)));
@@ -56,7 +59,7 @@ public class HistoryUI extends Functions_Interface implements ActionListener {
 
         return search_panel;
     }
-    
+
     public void resetUI() {
         history.setListData(new String[0]);
         dic.clearHistory();

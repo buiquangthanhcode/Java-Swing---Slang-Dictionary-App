@@ -61,7 +61,7 @@ public class SearchDefinitionUI extends Functions_Interface implements ActionLis
         header_search.setBackground(Color.WHITE);
 
         header_search.setLayout(new FlowLayout(FlowLayout.CENTER));
-        header_text_title = new JLabel("Search Definition Slang");
+        header_text_title = new JLabel("--> Search Definition Slang <--");
 
         header_search.add(header_text_title);
         header_search.setBorder(BorderFactory.createLineBorder(Color.gray));
