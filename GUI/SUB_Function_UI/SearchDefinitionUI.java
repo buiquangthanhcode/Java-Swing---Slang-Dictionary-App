@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import Project01.GUI.Functions_Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 public class SearchDefinitionUI extends Functions_Interface implements ActionListener{
     private JPanel search_panel;
     private JPanel header_search;
@@ -36,11 +37,10 @@ public class SearchDefinitionUI extends Functions_Interface implements ActionLis
         if (cmd.equals("Button-Search")) {
 
             String slang_input = input_textfile.getText();
-            String result = dic.findSlang_Definitions(slang_input,"Search");
-            
-            String[] stockArr = new String[1];
-            stockArr[0] = result;
+            ArrayList<String>result = dic.findSlang_Definitions(slang_input,"Search");
+             String[]stockArr=result.toArray(new String[0]);
             meanings.setListData(stockArr);
+            
 
         } else if (cmd.equals("Clear")) {
             input_textfile.setText("");

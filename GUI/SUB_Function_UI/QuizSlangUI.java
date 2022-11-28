@@ -99,6 +99,10 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
                             resetLable();
                             resetCheckBox();
                             count = 0;
+                            mark.put("A", 0);
+                            mark.put("B", 0);
+                            mark.put("C", 0);
+                            mark.put("D", 0);
                             d.dispose();
 
                         }
@@ -125,6 +129,10 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
                         public void actionPerformed(ActionEvent e) {
                             resetCheckBox();
                             count = 0;
+                            mark.put("A", 0);
+                            mark.put("B", 0);
+                            mark.put("C", 0);
+                            mark.put("D", 0);
                             d.dispose();
 
                         }
@@ -260,4 +268,5 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         checkboxC.setSelected(false);
         checkboxD.setSelected(false);
     }
+   
 }

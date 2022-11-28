@@ -2,6 +2,7 @@ package Project01.dictionary;
 
 import Project01.utility.Utility;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -72,16 +73,17 @@ public class Dictionary {
       this.history.clear();;
    }
 
-   public String findSlang_Definitions(String defString,String target) {
+   public ArrayList<String> findSlang_Definitions(String defString,String target) {
 
-      if (this.defSlangMeans.containsKey(defString)) {
-         if(!history.contains("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0)) && target.equals("Search")){
-            history.add("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0));
+      ArrayList<String> results = new ArrayList<String>();
+      for(String e: defSlangMeans.keySet()){
+         if(e.contains(defString) && target.equals("Search")){
+            results.add(defSlangMeans.get(e).toString());
+             history.add("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0));
          }
-         return this.defSlangMeans.get(defString).get(0);
       }
       history.add("Slang-Defitinion :" + NOTFOUND);
-      return NOTFOUND;
+         return results;
 
    }
 

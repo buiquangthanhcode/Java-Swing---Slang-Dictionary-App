@@ -26,7 +26,8 @@ public class SearchUI extends Functions_Interface implements ActionListener {
     private JList meanings;
     private JButton search_button;
     private JButton clear_button;
-    public SearchUI(){
+
+    public SearchUI() {
 
     }
 
@@ -35,13 +36,13 @@ public class SearchUI extends Functions_Interface implements ActionListener {
         if (cmd.equals("Button-Search")) {
 
             String slang_input = input_textfile.getText();
-            ArrayList<String> result = dic.findSlang(slang_input,"Search");
+            ArrayList<String> result = dic.findSlang(slang_input, "Search");
             System.out.println(result.toString());
             String[] stockArr = new String[result.size()];
             stockArr = result.toArray(stockArr);
             meanings.setListData(stockArr);
-          
-        }else if (cmd.equals("Clear")){
+
+        } else if (cmd.equals("Clear")) {
             input_textfile.setText("");
             meanings.setListData(new String[0]);
 
@@ -91,7 +92,7 @@ public class SearchUI extends Functions_Interface implements ActionListener {
 
         return search_panel;
     }
-    
+
     public void resetUI() {
         input_textfile.setText("");
         meanings.setListData(new String[0]);
