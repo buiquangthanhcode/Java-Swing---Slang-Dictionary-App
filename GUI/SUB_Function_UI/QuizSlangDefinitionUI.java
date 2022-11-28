@@ -61,14 +61,14 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
         }
         if (cmd.equals("Random")) {
             ArrayList<String> random_question = dic.randomQuizSlang_Definition();
-            one_answer.setText("A." + dic.findSlang_Definitions(random_question.get(0), "random").toString());
-            two_answer.setText("B." + dic.findSlang_Definitions(random_question.get(1), "random").toString());
-            third_answer.setText("C." + dic.findSlang_Definitions(random_question.get(2), "random").toString());
-            four_answer.setText("D." + dic.findSlang_Definitions(random_question.get(3), "random").toString());
+            one_answer.setText("A." + dic.findSlang_Definitions_Quiz(random_question.get(0), "random").toString());
+            two_answer.setText("B." + dic.findSlang_Definitions_Quiz(random_question.get(1), "random").toString());
+            third_answer.setText("C." + dic.findSlang_Definitions_Quiz(random_question.get(2), "random").toString());
+            four_answer.setText("D." + dic.findSlang_Definitions_Quiz(random_question.get(3), "random").toString());
             Random rand = new Random();
             int index = rand.nextInt(3 - 0 + 1) + 0;
             String random = random_question.get(index);
-            String random_answer = dic.findSlang_Definitions((random_question.get(index)), "random").toString();
+            String random_answer = dic.findSlang_Definitions_Quiz((random_question.get(index)), "random").toString();
             map.put(takeIndex[index], random_answer);
             show_Slang_randow.setText(random);
         } else if (cmd.equals("Submit")) {

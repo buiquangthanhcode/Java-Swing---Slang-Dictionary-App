@@ -3,12 +3,14 @@ package Project01.GUI.SUB_Function_UI;
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
+
 import Project01.GUI.Functions_Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +42,7 @@ public class SearchDefinitionUI extends Functions_Interface implements ActionLis
             ArrayList<String>result = dic.findSlang_Definitions(slang_input,"Search");
              String[]stockArr=result.toArray(new String[0]);
             meanings.setListData(stockArr);
-            
+
 
         } else if (cmd.equals("Clear")) {
             input_textfile.setText("");
@@ -85,8 +87,9 @@ public class SearchDefinitionUI extends Functions_Interface implements ActionLis
 
         String[] lists = { "" };
         meanings = new JList(lists);
+        JScrollPane s = new JScrollPane(meanings);
         content.add(input, BorderLayout.NORTH);
-        content.add(meanings, BorderLayout.CENTER);
+        content.add(s, BorderLayout.CENTER);
 
         search_panel.add(Box.createRigidArea(new Dimension(10, 8)));
         search_panel.add(header_search);

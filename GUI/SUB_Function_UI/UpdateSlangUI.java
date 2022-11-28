@@ -150,7 +150,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
         input = new JPanel();
         input.setLayout(new BoxLayout(input, BoxLayout.Y_AXIS));
 
-        input_label = new JLabel("Enter word");
+        input_label = new JLabel("Enter slang");
         input_textfile = new JTextField(15);
         input.add(input_label);
         input.add(input_textfile);
