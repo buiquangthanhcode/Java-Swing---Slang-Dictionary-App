@@ -77,7 +77,6 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
         if (cmd.equals("Random")) {
             randomQuestion();
         } else if (cmd.equals("Submit")) {
-            System.out.println(count);
             if (count > 1 || count <= 0) {
                 JOptionPane.showMessageDialog(null, "Please choose 1 answer", "Error", JOptionPane.ERROR_MESSAGE);
                 count = 0;
@@ -109,11 +108,29 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
                         }
 
                     });
+                    JButton canclebtn = new JButton("Cancle");
+                    canclebtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    canclebtn.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            resetLable();
+                            resetCheckBox();
+                            count = 0;
+                            mark.put("A", 0);
+                            mark.put("B", 0);
+                            mark.put("C", 0);
+                            mark.put("D", 0);
+                            d.dispose();
+
+                        }
+
+                    });
                     confirmJPanel.add(Box.createRigidArea(new Dimension(10, 10)));
                     confirmJPanel.add(continuebtn);
+                    confirmJPanel.add(canclebtn);
 
                     d.add(confirmJPanel);
-                    d.setSize(200, 100);
+                    d.setSize(200, 200);
                     d.setLocationRelativeTo(null);
                     d.setVisible(true);
                 } else {
@@ -139,7 +156,7 @@ public class QuizSlangDefinitionUI extends Functions_Interface implements Action
                     confirmJPanel.add(continuebtn);
 
                     d.add(confirmJPanel);
-                    d.setSize(200, 100);
+                    d.setSize(200, 200);
                     d.setLocationRelativeTo(null);
                     d.setVisible(true);
                 }

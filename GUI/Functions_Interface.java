@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JDialog;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 
@@ -27,6 +28,7 @@ public class Functions_Interface extends InterfaceProgram {
     protected JButton btnRandom;
     protected JButton btnQuizSlang;
     protected JButton btnQuizSlangDefinitions;
+    protected JButton btnShowSlang;
     protected static JPanel menu_function;
     protected static JList history;
     protected static SearchUI UI_SEARCH;
@@ -39,6 +41,7 @@ public class Functions_Interface extends InterfaceProgram {
     protected static QuizSlangUI UI_QUIZ;
     protected static QuizSlangDefinitionUI UI_QUIZ_DEFINITION;
     protected static RandomSlangUI UI_RANDOM;
+    protected static ShowSlangUI UI_SHOW;
 
     public Functions_Interface() {
 
@@ -56,11 +59,17 @@ public class Functions_Interface extends InterfaceProgram {
         header = new JPanel();
         header.setLayout(new FlowLayout(FlowLayout.CENTER));
         header_title = new JLabel("Slang Words Dictionary");
+        header_title.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        JPanel back_Panel = new JPanel();
+
         JButton homtBtn = new JButton("Back Introdcution");
+        back_Panel.add(homtBtn);
         homtBtn.setActionCommand("Back Introdcution");
         homtBtn.addActionListener(even);
+        header.add(Box.createRigidArea(new Dimension(100, 20)));
         header.add(header_title);
-        header.add(homtBtn);
+        header.add(Box.createRigidArea(new Dimension(120, 20)));
+        header.add(back_Panel);
 
         menu_function = new JPanel();
 
@@ -75,6 +84,7 @@ public class Functions_Interface extends InterfaceProgram {
         UI_QUIZ = new QuizSlangUI();
         UI_QUIZ_DEFINITION = new QuizSlangDefinitionUI();
         UI_RANDOM = new RandomSlangUI();
+        UI_SHOW = new ShowSlangUI();
 
         menu_function.add("search", UI_SEARCH.searchPanel());
         menu_function.add("search-definition", UI_SEARCH_DEFINITION.searchPanel());
@@ -86,9 +96,15 @@ public class Functions_Interface extends InterfaceProgram {
         menu_function.add("quiz", UI_QUIZ.quizJPanel());
         menu_function.add("quiz-definition", UI_QUIZ_DEFINITION.quizJPanel());
         menu_function.add("random", UI_RANDOM.randoJPanel());
+        menu_function.add("show", UI_SHOW.searchPanel());
 
         JPanel side_bar = new JPanel();
-        side_bar.setLayout(new GridLayout(10, 1));
+        side_bar.setLayout(new GridLayout(11, 1));
+
+        btnShowSlang = new JButton("Show Slang");
+        btnShowSlang.setActionCommand("Show Slang");
+        btnShowSlang.addActionListener(even);
+        side_bar.add(btnShowSlang);
 
         btnSearch = new JButton("Search Slang");
         btnSearch.setActionCommand("Search Slang");
@@ -170,7 +186,11 @@ class BtnEvent extends Functions_Interface implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        if (cmd.equals("Search Slang")) {
+        if(cmd.equals("Show Slang")){
+            CardLayout cardLayout = (CardLayout) (menu_function.getLayout());
+            cardLayout.show(menu_function, "show");
+        }
+        else if (cmd.equals("Search Slang")) {
             CardLayout cardLayout = (CardLayout) (menu_function.getLayout());
             cardLayout.show(menu_function, "search");
         } else if (cmd.equals("Add Slang")) {
@@ -185,6 +205,7 @@ class BtnEvent extends Functions_Interface implements ActionListener {
             cardLayout.show(menu_function, "history");
             String[] historys = new String[dic.getSizeHistory()];
             historys = dic.getHistoryList().toArray(historys);
+
             history.setListData(historys);
 
         } else if (cmd.equals("Delete Slang")) {

@@ -2,7 +2,6 @@ package Project01.dictionary;
 
 import Project01.utility.Utility;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -64,11 +63,13 @@ public class Dictionary {
       if (this.slangMeans.containsKey(slang)) {
          if (!history.contains("Slang :" + slang + "-" + this.slangMeans.get(slang)) && target.equals("Search")) {
             history.add("Slang :" + slang + "-" + this.slangMeans.get(slang));
+            storeHistoryToFile();
          }
          return this.slangMeans.get(slang);
       }
       if (!history.contains("Slang :" + notFound))
-         history.add("Slang :" + notFound);
+         {history.add("Slang :" + notFound);
+            storeHistoryToFile();}
       return notFound;
    }
 
@@ -83,19 +84,25 @@ public class Dictionary {
       ArrayList<String> results = new ArrayList<String>();
       for (String e : defSlangMeans.keySet()) {
          if (e.contains(defString) && target.equals("Search")) {
-            results.add(defSlangMeans.get(e).toString());
+            String rs=defSlangMeans.get(e).toString().replace("[", "");
+            rs=rs.replace("]", "");
+            results.add(rs);
 
          }
       }
       if (this.defSlangMeans.containsKey(defString)) {
-         if (!history.contains("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0))
+         if (!history.contains("Slang-Defitinion :" + defString)
                && target.equals("Search")) {
-            history.add("Slang-Defitinion :" + defString + " - " + this.defSlangMeans.get(defString).get(0));
+            history.add("Slang-Defitinion :" + defString );
+            storeHistoryToFile();
          }
 
       }
-      if (results.size() == 0 && !history.contains("Slang-Defitinion :" + NOTFOUND))
+      if (results.size() == 0 && !history.contains("Slang-Defitinion :" + NOTFOUND)){
          history.add("Slang-Defitinion :" + NOTFOUND);
+         storeHistoryToFile();
+      }
+         
       return results;
 
    }
@@ -131,6 +138,7 @@ public class Dictionary {
       boolean state = checkExists(newSlang);
       if (state == true && target.equals("Override")) {
          editSlang(newSlang, new_Slang_Definition, "SLANG_DEFINITION");
+
       } else if (state == true && target.equals("Duplicate")) {
          this.slangMeans.get(newSlang).add(new_Slang_Definition);
 
@@ -218,4 +226,14 @@ public class Dictionary {
       return result;
 
    }
+   public boolean storeHistoryToFile() {
+      try {
+         Utility.writeFile(history);
+      } catch (Exception e) {
+         // TODO: handle exception
+         e.printStackTrace();
+      }
+      return false;
+   }
+
 }

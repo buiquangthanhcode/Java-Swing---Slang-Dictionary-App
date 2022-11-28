@@ -50,7 +50,6 @@ class StartBtnListener extends InterfaceProgram implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         String accommed = ae.getActionCommand();
         if (accommed.equals("start")) {
-            System.out.println("Ok");
        
             CardLayout cardLayout = (CardLayout) (app.getLayout());
             cardLayout.show(app, "function");

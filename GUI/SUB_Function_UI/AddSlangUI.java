@@ -34,9 +34,7 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
         if (cmd.equals("Submit")) {
             String slang = input_textfile.getText();
             String slang_definition = input_Slang_Definition.getText();
-            System.out.println(slang);
             boolean state = dic.checkExists(slang);
-            System.out.println(state);
             if (state) {
                 JDialog d = new JDialog(jframe, "Message");
                 JPanel confirmJPanel = new JPanel();
@@ -92,6 +90,7 @@ public class AddSlangUI extends Functions_Interface implements ActionListener {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         dic.addSlang(slang, slang_definition, "Addnew");
+                       
                         input_textfile.setText("");
                         input_Slang_Definition.setText("");
                         d.dispose();

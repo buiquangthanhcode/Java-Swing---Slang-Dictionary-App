@@ -5,9 +5,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import Project01.utility.Utility;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import Project01.GUI.Functions_Interface;
 public class ResetUI extends Functions_Interface implements ActionListener {
     private JPanel reset_panel;
@@ -29,6 +31,9 @@ public class ResetUI extends Functions_Interface implements ActionListener {
             UI_QUIZ_DEFINITION.resetCheckBox();
             UI_QUIZ_DEFINITION.resetLable();
             UI_SEARCH_DEFINITION.resetUI();
+            ArrayList<String> reset_file=new ArrayList<String>();
+            reset_file.add("");
+            Utility.writeFile(reset_file);
             JOptionPane.showMessageDialog(null, "Slang Reset");
             CardLayout cardLayout = (CardLayout) (menu_function.getLayout());
             cardLayout.show(menu_function, "search");
@@ -55,3 +60,5 @@ public class ResetUI extends Functions_Interface implements ActionListener {
         return reset_panel;
     }
 }
+
+// search nghia da them vo 

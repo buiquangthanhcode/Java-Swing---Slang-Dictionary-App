@@ -3,6 +3,7 @@ package Project01.GUI.SUB_Function_UI;
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.BorderFactory;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import Project01.GUI.Functions_Interface;
+import Project01.utility.Utility;
 
 public class SearchUI extends Functions_Interface implements ActionListener {
     private JPanel search_panel;
@@ -37,7 +39,6 @@ public class SearchUI extends Functions_Interface implements ActionListener {
 
             String slang_input = input_textfile.getText();
             ArrayList<String> result = dic.findSlang(slang_input, "Search");
-            System.out.println(result.toString());
             String[] stockArr = new String[result.size()];
             stockArr = result.toArray(stockArr);
             meanings.setListData(stockArr);
@@ -82,9 +83,12 @@ public class SearchUI extends Functions_Interface implements ActionListener {
         input.add(search_button);
         input.add(clear_button);
         String[] lists = { "" };
+
         meanings = new JList(lists);
+
+        JScrollPane cp = new JScrollPane(meanings);
         content.add(input, BorderLayout.NORTH);
-        content.add(meanings, BorderLayout.CENTER);
+        content.add(cp, BorderLayout.CENTER);
 
         search_panel.add(Box.createRigidArea(new Dimension(10, 8)));
         search_panel.add(header_search);

@@ -42,7 +42,6 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
             String slang = input_textfile.getText();
             String newinfor = jTextArea_edit.getText();
             boolean state = dic.checkExists(slang);
-            System.out.println(state);
             if (state && newinfor.length() != 0) {
                 JDialog d = new JDialog(jframe, "Message");
                 JPanel confirmJPanel = new JPanel();
@@ -55,7 +54,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
                 overridebtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Slang");
+                       
                         if (newinfor.length() != 0) {
 
                             boolean editstate = dic.editSlang(slang, newinfor, "SLANG");
@@ -81,7 +80,7 @@ public class UpdateSlangUI extends Functions_Interface implements ActionListener
                 duplicatebtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Definitions");
+                       
                         if (newinfor.length() != 0) {
                             boolean statebtn = dic.editSlang(slang, newinfor, "SLANG_DEFINITION");
                             if (statebtn) {

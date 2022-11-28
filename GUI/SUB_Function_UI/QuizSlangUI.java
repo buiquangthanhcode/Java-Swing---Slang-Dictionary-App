@@ -44,10 +44,11 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         mark.put("B", 0);
         mark.put("C", 0);
         mark.put("D", 0);
-       
+
         submit_answerbtn = new JButton("Submit");
     }
-    public void randomQuestion(){
+
+    public void randomQuestion() {
         String[] takeIndex = new String[] { "A", "B", "C", "D" };
         ArrayList<String> random_question = dic.randomQuizSlang();
         one_answer.setText("A." + dic.findSlang(random_question.get(0), "random").toString());
@@ -61,11 +62,11 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         map.put(takeIndex[index], random_answer);
         show_Slang_randow.setText(random);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
 
-       
         for (Map.Entry<String, Integer> entry : mark.entrySet()) {
             if (entry.getValue() == 1) {
                 count++;
@@ -74,7 +75,7 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         if (cmd.equals("Random")) {
             randomQuestion();
         } else if (cmd.equals("Submit")) {
-            System.out.println(count);
+            
             if (count > 1 || count <= 0) {
                 JOptionPane.showMessageDialog(null, "Please choose 1 answer", "Error", JOptionPane.ERROR_MESSAGE);
                 count = 0;
@@ -92,15 +93,32 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
                     JDialog d = new JDialog(jframe, "Message");
                     JPanel confirmJPanel = new JPanel();
                     confirmJPanel.setLayout(new BoxLayout(confirmJPanel, BoxLayout.Y_AXIS));
-                    JLabel l = new JLabel("Correctly");
+                    JLabel l = new JLabel("Correctly :D ");
                     l.setAlignmentX(Component.CENTER_ALIGNMENT);
                     confirmJPanel.add(l);
-                    JButton continuebtn = new JButton("Continue");
+                    JButton continuebtn = new JButton("Continue ");
                     continuebtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    JButton canclebtn = new JButton("Cancle");
+                    canclebtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+                    canclebtn.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            resetLable();
+                            resetCheckBox();
+                            count = 0;
+                            mark.put("A", 0);
+                            mark.put("B", 0);
+                            mark.put("C", 0);
+                            mark.put("D", 0);
+                            d.dispose();
+
+                        }
+
+                    });
                     continuebtn.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                           randomQuestion();
+                            randomQuestion();
                             resetCheckBox();
                             count = 0;
                             mark.put("A", 0);
@@ -114,9 +132,10 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
                     });
                     confirmJPanel.add(Box.createRigidArea(new Dimension(10, 10)));
                     confirmJPanel.add(continuebtn);
+                    confirmJPanel.add(canclebtn);
 
                     d.add(confirmJPanel);
-                    d.setSize(200, 100);
+                    d.setSize(200, 200);
                     d.setLocationRelativeTo(null);
                     d.setVisible(true);
                 } else {
@@ -146,7 +165,7 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
                     confirmJPanel.add(continuebtn);
 
                     d.add(confirmJPanel);
-                    d.setSize(200, 100);
+                    d.setSize(200, 200);
                     d.setLocationRelativeTo(null);
                     d.setVisible(true);
                 }
@@ -273,5 +292,5 @@ public class QuizSlangUI extends Functions_Interface implements ActionListener, 
         checkboxC.setSelected(false);
         checkboxD.setSelected(false);
     }
-   
+
 }

@@ -6,16 +6,17 @@ import java.util.*;
 public class Utility {
     private static final Hashtable<String, ArrayList<String>> listWords = new Hashtable<>();
     private static final Hashtable<String, ArrayList<String>> defWords = new Hashtable<>();
-
     private final static String pathFile = "/Project01/assets/file/slang.txt";
     private final static String pathFileImage = "/Project01/assets/img/intro_ui.png";
-    private final static String pathTestFile="/Project01/dictionary/test.txt";
+    private final static String pathHistoryFile = "/Project01/dictionary/history.txt";
     private final static String pathProject = System.getProperty("user.dir");
     private final static String path_file_name_Slang = pathProject + pathFile;
-    public static final String getFileTest(){
-        return pathProject+pathTestFile;
+
+    public static final String getFilePathFileHistory() {
+        return pathProject + pathHistoryFile;
 
     }
+
     public static final String getPathIamge() {
         return pathProject + pathFileImage;
     }
@@ -33,7 +34,6 @@ public class Utility {
     }
 
     public static void getDataFromTextFile() {
-
         HashMap<String, String> map = new HashMap<String, String>();
         try {
             File file = new File(path_file_name_Slang);
@@ -62,8 +62,8 @@ public class Utility {
                             listWords.put(split_str[0], listMeaning);
                             defWords.put(split_str[1], slang);
 
-
                         }
+
                     }
                 }
             }
@@ -80,6 +80,37 @@ public class Utility {
 
     public static Hashtable<String, ArrayList<String>> getDefWords() {
         return defWords;
+    }
+
+    public static void writeFile(ArrayList<String> his) {
+        try {
+            FileWriter myWriter = new FileWriter(getFilePathFileHistory());
+            for (String e : his) {
+                myWriter.write(e + "\n");
+            }
+            myWriter.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+    public static String[] getDataOneLine() {
+        ArrayList<String> lines = new ArrayList<String>();
+
+        for (Map.Entry<String, ArrayList<String>> entry : listWords.entrySet()) {
+            String rs=entry.getValue().toString().replace("[", "");
+            rs=rs.replace("]","");
+            lines.add(entry.getKey() + " : " + rs);
+        }
+        Collections.sort(lines, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        });
+        String[] data = lines.toArray(new String[lines.size()]);
+        return data;
     }
 
 }
